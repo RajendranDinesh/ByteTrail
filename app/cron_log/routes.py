@@ -2,9 +2,9 @@ from app import db
 from . import main
 from .models import LogEntry
 
-@main.route('/log/<endpoint>/<status>', methods=['POST'])
+@main.route('/<endpoint>/<status>', methods=['POST'])
 def log(endpoint, status):
     new_log = LogEntry(endpoint=endpoint, status=status)
     db.session.add(new_log)
     db.session.commit()
-    return "Logged successfully"
+    return "", 200
