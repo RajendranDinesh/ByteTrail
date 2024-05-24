@@ -5,7 +5,7 @@ class LogEntry(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     device_id = db.Column(db.String(255), nullable=False)
-    log = db.Column(db.String(255), nullable=False)
+    log = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, server_default=db.func.now())
 
 class Device(db.Model):
