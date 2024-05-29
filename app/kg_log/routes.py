@@ -2,7 +2,8 @@ from flask import request
 
 from app import db
 from . import main
-from .models import LogEntry, Device
+from .models import LogEntry
+from ..device.models import Device
 
 @main.route('/', methods=['POST', 'GET'])
 def log():
@@ -13,12 +14,12 @@ def log():
     try:
         data = request.get_json()
     except:
-        return "", 200
+        return "You sure that's JSON?", 400
     
     fields = ['log', 'device_id']
     for field in fields:
         if field not in data:
-            return "", 200
+            return f"You're missing something buddy...", 400
 
     device_id = data['device_id']
 
@@ -36,7 +37,7 @@ def log():
 
     db.session.commit()
 
-    return "", 200
+    return f"Log intercepted at {db.func.now()}", 200
 
 def decrpt():
     import base64
