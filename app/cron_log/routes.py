@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, jsonify
 
 from app import db
 from . import main
@@ -10,7 +10,9 @@ def log():
     if request.method == 'GET':
         logs = LogEntry.query.all()
 
-        return f"{[log.to_dict() for log in logs]}", 200
+        response = {"logs": [log.to_dict() for log in logs]}
+
+        return jsonify(response), 200
     
     data = request.get_json()
 

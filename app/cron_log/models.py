@@ -8,3 +8,12 @@ class LogEntry(db.Model):
     endpoint = db.Column(db.String(255), nullable=False)
     status = db.Column(db.String(255), nullable=False)
     timestamp = db.Column(db.DateTime, server_default=db.func.now())
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'device_id': self.device_id,
+            'endpoint': self.endpoint,
+            'status': self.status,
+            'timestamp': self.timestamp
+        }
